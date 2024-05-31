@@ -1,7 +1,13 @@
 class PlacesController < ApplicationController
 
   def index
-    @places = Place.all
+    @entries = Entry.where({ "user_id" => session["user_id"] })
+    
+    @place_ids = @entries.pluck("place_id")
+
+    ## RETURNS LIST OF PLACE OBJECTS
+    @places = Place.where({"id" => @place_ids})
+
   end
 
   def show
@@ -16,7 +22,7 @@ class PlacesController < ApplicationController
     @place = Place.new
     @place["name"] = params["name"]
     @place.save
-    redirect_to "/places"
+    redirect_to "/places/#{@place["id"]}"
   end
 
 end
