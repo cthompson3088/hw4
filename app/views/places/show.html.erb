@@ -10,10 +10,10 @@
             <div class="card-body">
               <h5 class="card-title"><%= entry["title"] %></h5>
               <h6 class="card-subtitle mb-2 text-muted"><%= entry["occurred_on"] %></h6>
-              <% if entry["image"] %>
-                <img src="<%= entry["image"] %>" class="img-fluid mb-3" alt="Image for <%= entry["title"] %>">
-              <% else %>
-                <div style="height: 180px;" class="mb-3"></div>
+              <% if entry.uploaded_image.attached? %>
+                <img src="<%= url_for(entry.uploaded_image) %>" class="img-fluid">
+               <% else %>
+                <img src="<%= entry["image"] %>" class="img-fluid mb-3" >
               <% end %>
               <p class="card-text"><%= entry["description"] %></p>
             </div>
